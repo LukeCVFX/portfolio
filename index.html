@@ -21,23 +21,23 @@
     */
 
     :root {
-      --bg: #07120d;
-      --panel: #102018;
-      --panel-light: #173326;
-      --panel-soft: rgba(16, 32, 24, 0.82);
-      --text: #f3f6ee;
-      --muted: #b7c7b8;
-      --muted-strong: #d8e4d2;
-      --line: rgba(190, 219, 190, 0.16);
-      --accent: #a8c9a1;
-      --accent-strong: #d5e8c8;
-      --footer-bg: #07121a;
-      --footer-panel: #0c2230;
-      --footer-muted: #a8bfca;
+      --bg: #0b1f16;
+      --panel: #173724;
+      --panel-light: #235a3a;
+      --panel-soft: rgba(23, 55, 36, 0.72);
+      --text: #f7fbf1;
+      --muted: #cbdcc6;
+      --muted-strong: #e5f0dc;
+      --line: rgba(202, 234, 198, 0.22);
+      --accent: #bddfae;
+      --accent-strong: #edf8df;
+      --footer-bg: #0a1c28;
+      --footer-panel: #12354c;
+      --footer-muted: #bed7e4;
       --max-width: 1180px;
       --radius: 18px;
       --shadow: 0 18px 45px rgba(0, 0, 0, 0.34);
-      --header-height: 86px;
+      --header-height: 96px;
     }
 
     * {
@@ -51,9 +51,9 @@
     body {
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(72, 108, 69, 0.22), transparent 34rem),
-        radial-gradient(circle at bottom right, rgba(20, 69, 55, 0.26), transparent 30rem),
-        linear-gradient(145deg, #07120d 0%, #0b1811 48%, #06100b 100%);
+        radial-gradient(circle at top left, rgba(94, 148, 82, 0.32), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(31, 108, 78, 0.32), transparent 30rem),
+        linear-gradient(145deg, #0b1f16 0%, #113321 48%, #081a12 100%);
       color: var(--text);
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       line-height: 1.6;
@@ -82,7 +82,7 @@
       top: 0;
       z-index: 100;
       min-height: var(--header-height);
-      background: rgba(7, 18, 13, 0.9);
+      background: rgba(11, 31, 22, 0.9);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
     }
@@ -99,22 +99,22 @@
 
     .site-brand {
       display: grid;
-      gap: 2px;
+      gap: 3px;
       white-space: nowrap;
     }
 
     .site-name {
-      font-size: clamp(1.1rem, 2vw, 1.45rem);
+      font-size: clamp(1.265rem, 2.3vw, 1.668rem);
       font-weight: 700;
       letter-spacing: 0.02em;
     }
 
     .site-subline {
       color: var(--muted);
-      font-size: clamp(0.74rem, 1.2vw, 0.86rem);
+      font-size: clamp(0.851rem, 1.38vw, 0.989rem);
       font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-transform: none;
     }
 
     .nav-links {
@@ -129,7 +129,7 @@
       padding: 10px 13px;
       border-radius: 999px;
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 1.0925rem;
       transition: background 160ms ease, color 160ms ease;
     }
 
@@ -212,6 +212,11 @@
       display: block;
     }
 
+    .reel-video {
+      width: 85%;
+      margin: 0 auto;
+    }
+
     .video-shell iframe {
       position: absolute;
       inset: 0;
@@ -231,6 +236,22 @@
     .text-box.wide,
     .about-statement.wide {
       max-width: 850px;
+    }
+
+    #home .text-box {
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    #home .text-box.wide {
+      max-width: 760px;
+    }
+
+    #home .work-card .text-box {
+      min-height: auto;
     }
 
     .section-spacer {
@@ -311,10 +332,16 @@
       border-color: rgba(213, 232, 200, 0.46);
     }
 
-    .social-card svg,
-    .footer-socials svg {
+    .social-card svg {
       width: 24px;
       height: 24px;
+      flex: 0 0 auto;
+      fill: currentColor;
+    }
+
+    .footer-socials svg {
+      width: 32px;
+      height: 32px;
       flex: 0 0 auto;
       fill: currentColor;
     }
@@ -347,10 +374,50 @@
       color: var(--accent-strong);
     }
 
+    #contact .page-heading {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    #contact .page-heading h2 {
+      margin-bottom: 0;
+    }
+
+    #contact .contact-content {
+      text-align: center;
+    }
+
+    .contact-email-large {
+      display: inline-block;
+      margin-bottom: 36px;
+      color: var(--text);
+      font-size: clamp(2rem, 6vw, 4.7rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      word-break: break-word;
+    }
+
+    .contact-email-large:hover {
+      color: var(--accent-strong);
+    }
+
+    #contact .contact-grid {
+      max-width: 820px;
+      margin: 0 auto;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    #contact .social-card {
+      justify-content: center;
+      padding-bottom: 18px;
+      font-size: 1.1rem;
+    }
+
     .site-footer {
       border-top: 1px solid rgba(150, 190, 210, 0.18);
       background:
-        radial-gradient(circle at top right, rgba(30, 77, 102, 0.34), transparent 26rem),
+        radial-gradient(circle at top right, rgba(43, 123, 158, 0.46), transparent 26rem),
         var(--footer-bg);
     }
 
@@ -378,8 +445,8 @@
     }
 
     .footer-socials a {
-      width: 42px;
-      height: 42px;
+      width: 58px;
+      height: 58px;
       display: grid;
       place-items: center;
       border: 1px solid rgba(168, 191, 202, 0.24);
@@ -396,7 +463,8 @@
 
     .footer-email {
       color: var(--footer-muted);
-      font-size: 0.92rem;
+      font-size: 1.058rem;
+      font-weight: 700;
       word-break: break-word;
     }
 
@@ -418,6 +486,10 @@
 
       .nav-links {
         justify-content: flex-start;
+      }
+
+      .reel-video {
+        width: 100%;
       }
 
       .work-grid,
@@ -444,11 +516,12 @@
 
       .nav-links a {
         text-align: center;
-        background: rgba(168, 201, 161, 0.08);
+        background: rgba(189, 223, 174, 0.1);
       }
 
       .work-grid,
-      .contact-grid {
+      .contact-grid,
+      #contact .contact-grid {
         grid-template-columns: 1fr;
       }
 
@@ -485,7 +558,7 @@
     <div class="header-inner">
       <a class="site-brand" href="#home" aria-label="Go to home page">
         <span class="site-name">Luke Churchill</span>
-        <span class="site-subline">VFX, 3D, Post Production</span>
+        <span class="site-subline">VFX, 3D, Post-production</span>
       </a>
 
       <nav class="nav-links" aria-label="Main navigation">
@@ -499,12 +572,7 @@
 
   <main>
     <!-- HOME / LANDING PAGE -->
-    <section id="home" class="page active" aria-labelledby="home-title">
-      <div class="page-heading">
-        <p class="eyebrow">Video Artist Portfolio</p>
-        <h1 id="home-title">Luke Churchill</h1>
-      </div>
-
+    <section id="home" class="page active" aria-label="Home">
       <div class="hero">
         <!--
           REEL VIDEO:
@@ -512,7 +580,7 @@
           Example YouTube URL: https://www.youtube.com/watch?v=ABC123xyz
           The video ID is the part after v=, so use /embed/ABC123xyz?rel=0
         -->
-        <div class="video-shell">
+        <div class="video-shell reel-video">
               <iframe
                 src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0"
                 title="reel video"
@@ -694,20 +762,16 @@
     <!-- CONTACT PAGE -->
     <section id="contact" class="page" aria-labelledby="contact-title">
       <div class="page-heading">
-        <p class="eyebrow">Contact</p>
-        <h2 id="contact-title">Contact</h2>
-        <p>Use the links below to connect, view more work, or get in touch by email.</p>
+        <h2 id="contact-title">Contact Me</h2>
       </div>
 
       <div class="contact-layout">
         <div class="contact-content">
-          <h3>Social Links</h3>
-          <p>
-            <!-- Replace the href values below with your real profile links. -->
-            Add your current social profiles here. You can remove any social card you do not need.
-          </p>
+          <!-- Replace luke@example.com with your real email address. -->
+          <a class="contact-email-large" href="mailto:luke@example.com">luke@example.com</a>
 
           <div class="contact-grid" aria-label="Social media links">
+            <!-- Replace the href values below with your real profile links. -->
             <a class="social-card" href="https://www.youtube.com/" target="_blank" rel="noopener">
               <svg aria-hidden="true"><use href="#icon-youtube"></use></svg>
               <span>YouTube</span>
@@ -722,17 +786,6 @@
               <svg aria-hidden="true"><use href="#icon-instagram"></use></svg>
               <span>Instagram</span>
             </a>
-
-            <a class="social-card" href="mailto:luke@example.com">
-              <svg aria-hidden="true"><use href="#icon-email"></use></svg>
-              <span>Email</span>
-            </a>
-          </div>
-
-          <div class="email-box">
-            <span>Email</span>
-            <!-- Replace luke@example.com with your real email address. -->
-            <a class="email-address" href="mailto:luke@example.com">luke@example.com</a>
           </div>
         </div>
       </div>
@@ -741,11 +794,8 @@
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <div>
-        <div class="footer-meta">© <span id="year"></span> Luke Churchill</div>
-        <!-- Replace luke@example.com with your real email address. -->
-        <a class="footer-email" href="mailto:luke@example.com">luke@example.com</a>
-      </div>
+      <!-- Replace luke@example.com with your real email address. -->
+      <a class="footer-email" href="mailto:luke@example.com">luke@example.com</a>
 
       <div class="footer-socials" aria-label="Footer social links">
         <!-- Replace these href values with your real profile links. -->
@@ -769,7 +819,6 @@
     /*
       Minimal JavaScript for:
       1. Showing the correct page based on the URL hash.
-      2. Updating the footer year automatically.
     */
 
     const pages = document.querySelectorAll('.page');
@@ -793,7 +842,6 @@
     window.addEventListener('hashchange', showPage);
     showPage();
 
-    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
