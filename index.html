@@ -139,6 +139,50 @@
       color: var(--text);
     }
 
+    .mobile-menu-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      margin-left: auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(189, 223, 174, 0.08);
+      color: var(--text);
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease;
+    }
+
+    .mobile-menu-toggle:hover,
+    .mobile-menu-toggle[aria-expanded="true"] {
+      background: var(--panel-light);
+      border-color: rgba(213, 232, 200, 0.38);
+    }
+
+    .mobile-menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 160ms ease, opacity 160ms ease;
+    }
+
+    .mobile-menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
     main {
       min-height: calc(100vh - var(--header-height));
     }
@@ -484,13 +528,57 @@
 
     @media (max-width: 900px) {
       .header-inner {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 18px 0;
+        position: relative;
+        align-items: center;
+        flex-direction: row;
+        padding: 16px 0;
+        gap: 16px;
+      }
+
+      .site-brand {
+        min-width: 0;
+        white-space: normal;
+      }
+
+      .mobile-menu-toggle {
+        display: inline-flex;
+        flex: 0 0 auto;
       }
 
       .nav-links {
-        justify-content: flex-start;
+        position: absolute;
+        top: calc(100% - 8px);
+        right: 0;
+        width: min(260px, calc(100vw - 32px));
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(11, 31, 22, 0.97);
+        box-shadow: var(--shadow);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 12px 14px;
+        border-radius: 12px;
+        text-align: left;
+        background: transparent;
+        font-size: 1rem;
       }
 
       .reel-video {
@@ -514,14 +602,13 @@
       }
 
       .nav-links {
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        width: min(260px, calc(100vw - 24px));
+        grid-template-columns: 1fr;
       }
 
       .nav-links a {
-        text-align: center;
-        background: rgba(189, 223, 174, 0.1);
+        text-align: left;
+        background: transparent;
       }
 
       .work-grid,
@@ -566,7 +653,13 @@
         <span class="site-subline">VFX, 3D, Post-production</span>
       </a>
 
-      <nav class="nav-links" aria-label="Main navigation">
+      <button class="mobile-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-links" id="main-navigation" aria-label="Main navigation">
         <a href="#home" data-nav="home">Home</a>
         <a href="#resume" data-nav="resume">Resume</a>
         <a href="#about" data-nav="about">About Me</a>
@@ -817,6 +910,22 @@
 
     const pages = document.querySelectorAll('.page');
     const navLinks = document.querySelectorAll('[data-nav]');
+    const mobileMenuButton = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-links');
+
+    function closeMobileMenu() {
+      if (!mobileMenuButton || !navMenu) return;
+      navMenu.classList.remove('open');
+      mobileMenuButton.setAttribute('aria-expanded', 'false');
+      mobileMenuButton.setAttribute('aria-label', 'Open navigation menu');
+    }
+
+    function toggleMobileMenu() {
+      if (!mobileMenuButton || !navMenu) return;
+      const isOpen = navMenu.classList.toggle('open');
+      mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+      mobileMenuButton.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    }
 
     function showPage() {
       const pageId = (window.location.hash || '#home').replace('#', '');
@@ -830,8 +939,25 @@
         link.classList.toggle('active', link.dataset.nav === validPage);
       });
 
+      closeMobileMenu();
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
+
+    if (mobileMenuButton) {
+      mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    }
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMobileMenu();
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) closeMobileMenu();
+    });
 
     window.addEventListener('hashchange', showPage);
     showPage();
